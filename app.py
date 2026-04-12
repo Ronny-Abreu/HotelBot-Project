@@ -1,4 +1,4 @@
-# Servidor principal del HotelBot
+# app.py — Servidor principal del HotelBot
 import sys
 import traceback
 from datetime import datetime
@@ -18,22 +18,18 @@ from config import DefaultConfig
 
 CONFIG = DefaultConfig()
 
-# ------ TODO -----------
-# Para pruebas locales con el emulator, las credenciales van vacías.
-# Cuando se despliegue  Aenzure App Service, el APP_ID y APP_PASSWORD reales
-# se configuran como variables de entorno y se activan automáticamente.
 SETTINGS = BotFrameworkAdapterSettings(
-    app_id="",
-    app_password="",
+    app_id=CONFIG.APP_ID,
+    app_password=CONFIG.APP_PASSWORD,
 )
 
 ADAPTER = BotFrameworkAdapter(SETTINGS)
 BOT = HotelBot()
 
 
-# ── Manejo de errores globales ─────────────────────────────
+# ── Manejo de errores globales ──
 async def on_error(context: TurnContext, error: Exception):
-    print(f"\n[on_turn_error] Error no controlado: {error}", file=sys.stderr)
+    print(f"\n[on_turn_error] Error: {error}", file=sys.stderr)
     traceback.print_exc()
     await context.send_activity(
         "❌ El bot encontró un error. Por favor intenta de nuevo."
@@ -53,7 +49,7 @@ async def on_error(context: TurnContext, error: Exception):
 ADAPTER.on_turn_error = on_error
 
 
-# ── Endpoint principal ─────────────────────────────────────
+# ── Endpoint principal ──
 async def messages(req: Request) -> Response:
     if req.content_type != "application/json":
         return Response(status=HTTPStatus.UNSUPPORTED_MEDIA_TYPE)
@@ -73,6 +69,7 @@ APP.router.add_post("/api/messages", messages)
 
 if __name__ == "__main__":
     try:
-        web.run_app(APP, host="localhost", port=CONFIG.PORT)
+        port = int(CONFIG.PORT)
+        web.run_app(APP, host="0.0.0.0", port=port)
     except Exception as error:
         raise error
