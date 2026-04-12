@@ -1,0 +1,6 @@
+botbuilder-core
+botbuilder-integration-aiohttp
+aiohttp
+azure-ai-translation-text
+openai
+python-dotenv
