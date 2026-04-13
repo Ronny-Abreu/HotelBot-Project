@@ -65,8 +65,22 @@ async def messages(req: Request) -> Response:
     return Response(status=HTTPStatus.OK)
 
 
+# ── Landing Page ──
+async def index(req: Request) -> Response:
+    try:
+        with open("web/index.html", "r", encoding="utf-8") as f:
+            content = f.read()
+        content = content.replace("{{WEB_CHAT_SECRET}}", CONFIG.WEB_CHAT_SECRET)
+        return Response(text=content, content_type="text/html")
+    except Exception as e:
+        return Response(text=f"Error cargando landing: {str(e)}", status=500)
+
+
 APP = web.Application()
 APP.router.add_post("/api/messages", messages)
+APP.router.add_get("/", index)
+
+APP.router.add_static("/", "web")
 
 if __name__ == "__main__":
     try:

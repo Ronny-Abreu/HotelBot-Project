@@ -23,3 +23,4 @@ class DefaultConfig:
     AZURE_OPENAI_API_VERSION = os.environ.get(
         "AZURE_OPENAI_API_VERSION", "2024-12-01-preview"
     )
+    WEB_CHAT_SECRET = os.environ.get("WEB_CHAT_SECRET", "")
