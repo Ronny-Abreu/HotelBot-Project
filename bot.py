@@ -35,9 +35,9 @@ class HotelBot(ActivityHandler):
         # A) Detección de idioma y traducción
         idioma_detectado, texto_traducido = await self._traducir(texto_usuario)
 
-        # B) Escalamiento con respuesta en idioma correcto
+        # B) Escalamiento — se evalúa sobre el texto ya traducido al español
         if any(
-            keyword in texto_usuario.lower() for keyword in prompts.ESCALATION_KEYWORDS
+            keyword in texto_traducido.lower() for keyword in prompts.ESCALATION_KEYWORDS
         ):
             idioma_clave = (
                 idioma_detectado
