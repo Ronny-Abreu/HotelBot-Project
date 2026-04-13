@@ -21,7 +21,6 @@ CONFIG = DefaultConfig()
 SETTINGS = BotFrameworkAdapterSettings(
     app_id=CONFIG.APP_ID,
     app_password=CONFIG.APP_PASSWORD,
-    app_type="MultiTenant",
 )
 
 ADAPTER = BotFrameworkAdapter(SETTINGS)
