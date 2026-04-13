@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="description"
     content="Hotel Paradise International — Asistente Virtual Multilingüe con Azure AI y GPT-4o. Prueba el chatbot en vivo.">
+  <meta name="theme-color" content="#FFFFFF" id="theme-color-meta">
   <title>Hotel Paradise International — Asistente Virtual</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -242,12 +243,12 @@
     <div class="cta-bg-left"></div>
     <div class="cta-bg-right"></div>
     <div class="cta-inner">
-      <div class="cta-badge">✦ Proyecto ITLA 2026</div>
+      <div class="cta-badge">✦ No pierdas reservas</div>
       <h2 class="cta-title display-font">Eleva la experiencia<br>de tus <em style="color:var(--orange)">huéspedes</em>
       </h2>
       <p class="cta-sub">Hotel Paradise International · Santo Domingo, República Dominicana · Powered by Azure AI</p>
       <div class="cta-actions">
-        <a href="https://github.com/Ronny-Abreu/HotelBot-Project" target="_blank" class="btn-primary">Ver repositorio en
+        <a href="https://github.com/Ronny-Abreu/HotelBot-Project" target="_blank" class="btn-primary">Ver en
           GitHub</a>
         <a href="#home" class="btn-secondary">Volver al inicio</a>
       </div>
@@ -257,7 +258,7 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">Hotel Paradise International © 2026</div>
-    <div class="footer-copy">Proyecto ITLA · Prof. Ramón Alvarez</div>
+    <div class="footer-copy">¡VAMOS, CHATEA YA!</div>
     <div class="footer-links">
       <a href="https://azure.microsoft.com" target="_blank">Azure</a>
       <a href="https://openai.com" target="_blank">OpenAI</a>
@@ -301,18 +302,17 @@
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    // Dark mode — respeta preferencia del sistema
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (prefersDark) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      document.getElementById('themeToggle').textContent = '🌙';
-    }
+    // Por defecto forzamos Light Mode en todo dispositivo
+    const metaTheme = document.getElementById('theme-color-meta');
+    document.documentElement.setAttribute('data-theme', 'light');
+    if (metaTheme) metaTheme.setAttribute('content', '#FFFFFF');
 
     document.getElementById('themeToggle').addEventListener('click', () => {
       const html = document.documentElement;
       const isDark = html.getAttribute('data-theme') === 'dark';
       html.setAttribute('data-theme', isDark ? 'light' : 'dark');
       document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
+      if (metaTheme) metaTheme.setAttribute('content', isDark ? '#FFFFFF' : '#0D1117');
     });
 
     // ── Hero entry ──
@@ -478,10 +478,24 @@
           primaryFont: "'DM Sans', sans-serif"
         };
 
+        // Middleware para interceptar y formatear mensajes en el frontend
+        const store = window.WebChat.createStore({}, ({ dispatch }) => next => action => {
+          if (action.type === 'DIRECT_LINE/INCOMING_ACTIVITY') {
+            const activity = action.payload.activity;
+            if (activity && activity.type === 'message' && activity.text) {
+              if (activity.text.includes('•')) {
+                activity.text = activity.text.replace(/\s?•\s?/g, '\n\n• ');
+              }
+            }
+          }
+          return next(action);
+        });
+
         window.WebChat.renderWebChat(
           {
             directLine: window.WebChat.createDirectLine({ token: token }),
-            styleOptions: styleOptions
+            styleOptions: styleOptions,
+            store: store
           },
           document.getElementById('webchat-container')
         );
