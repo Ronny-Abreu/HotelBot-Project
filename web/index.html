@@ -3,14 +3,14 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="description"
     content="Hotel Paradise International — Asistente Virtual Multilingüe con Azure AI y GPT-4o. Prueba el chatbot en vivo.">
   <title>Hotel Paradise International — Asistente Virtual</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&family=Poppins:wght@700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 
@@ -34,7 +34,6 @@
     </ul>
     <div class="nav-actions">
       <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">☀️</button>
-      <button onclick="openChatBot()" class="nav-cta">Hablar con el bot ↗</button>
     </div>
   </nav>
 
@@ -52,7 +51,7 @@
         impulsado por Azure AI y OpenAI GPT-4o.
       </p>
       <div class="hero-actions">
-        <button onclick="openChatBot()" class="btn-primary">🤖 Probar chatbot en vivo</button>
+        <button onclick="openChatBot()" class="btn-primary">🤖 Chatear ahora</button>
         <a href="#features" class="btn-secondary">Ver funciones</a>
       </div>
     </div>
@@ -104,16 +103,18 @@
   <!-- STATS BAR -->
   <div class="stats-bar">
     <div class="stat-item">
-      <div class="stat-number stat-blue">60<span style="font-size:1.5rem">+</span></div>
+      <div class="stat-number stat-blue" data-target="60" data-suffix="+">0<span style="font-size:1.5rem">+</span></div>
       <div class="stat-label">Idiomas soportados</div>
     </div>
     <div class="stat-item">
-      <div class="stat-number" style="color:white">24<span style="font-size:1.5rem;opacity:.5">/7</span></div>
+      <div class="stat-number" style="color:white" data-target="24" data-suffix="/7">0<span
+          style="font-size:1.5rem;opacity:.5">/7</span></div>
       <div class="stat-label">Disponibilidad</div>
     </div>
     <div class="stat-item">
-      <div class="stat-number stat-accent">&lt;2<span style="font-size:1.5rem">s</span></div>
-      <div class="stat-label">Tiempo de respuesta</div>
+      <div class="stat-number stat-accent" data-target="100" data-suffix="%">0<span style="font-size:1.5rem">%</span>
+      </div>
+      <div class="stat-label">Precisión de IA</div>
     </div>
     <div class="stat-item">
       <div class="stat-number" style="color:white">100<span style="font-size:1.5rem">%</span></div>
@@ -274,7 +275,6 @@
             stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </span>
-      <span class="fab-icon-close" style="display:none;font-weight:400;font-size:26px;">✕</span>
       <div class="fab-dot"></div>
     </button>
   </div>
@@ -385,6 +385,21 @@
       opacity: 1, y: 0, duration: 0.7, stagger: 0.2, ease: 'power3.out'
     });
 
+    // ── Counters ──
+    gsap.utils.toArray('.stat-number').forEach(stat => {
+      const target = parseInt(stat.getAttribute('data-target') || parseInt(stat.innerText.replace(/\D/g, '')) || 0);
+      const suffix = stat.getAttribute('data-suffix') || stat.innerText.replace(/[0-9]/g, '');
+      let opac = suffix.includes('/') ? 'opacity:.5' : '';
+      gsap.to({ val: 0 }, {
+        val: target,
+        duration: 2,
+        scrollTrigger: { trigger: ".stats-bar", start: "top 85%" },
+        onUpdate: function () {
+          stat.innerHTML = Math.floor(this.targets()[0].val) + `<span style="font-size:1.5rem;${opac}">${suffix}</span>`;
+        }
+      });
+    });
+
     // ── CTA ──
     const ctaTl = gsap.timeline({
       scrollTrigger: { trigger: '.cta-section', start: 'top 70%' }
@@ -409,24 +424,22 @@
         initWebChat();
         isChatInitialized = true;
       }
-      document.getElementById('fabBtn').classList.add('active');
-      document.querySelector('.fab-icon-chat').style.display = 'none';
-      document.querySelector('.fab-icon-close').style.display = 'block';
-      document.querySelector('.fab-dot').style.display = 'none';
+      document.body.classList.add('chat-open');
+
+      gsap.to('#fabBtn', { scale: 0, opacity: 0, duration: 0.3 });
 
       gsap.to('#chatOverlay', { opacity: 1, display: 'block', duration: 0.3 });
       gsap.to('#chatModal', { visibility: 'visible', scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.4)' });
     }
 
     function closeChatBot() {
-      document.getElementById('fabBtn').classList.remove('active');
-      document.querySelector('.fab-icon-close').style.display = 'none';
-      document.querySelector('.fab-icon-chat').style.display = 'block';
+      document.body.classList.remove('chat-open');
 
       gsap.to('#chatOverlay', { opacity: 0, display: 'none', duration: 0.3 });
       gsap.to('#chatModal', {
         scale: 0.88, opacity: 0, duration: 0.3, ease: 'power2.in', onComplete: () => {
           document.getElementById('chatModal').style.visibility = 'hidden';
+          gsap.to('#fabBtn', { scale: 1, opacity: 1, duration: 0.4, ease: 'back.out' });
         }
       });
     }
@@ -448,18 +461,21 @@
       } else {
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         const styleOptions = {
-          botAvatarInitials: '🏨',
-          userAvatarInitials: 'Tú',
-          bubbleBackground: isDark ? 'rgba(59,143,232,0.15)' : '#E8F2FD',
-          bubbleTextColor: isDark ? '#90BFF0' : '#1A5FA5',
+          hideUserAvatar: true,
+          hideBotAvatar: true,
+          bubbleBorderWidth: 0,
+          bubbleFromUserBorderWidth: 0,
+          bubbleBackground: isDark ? 'rgba(59,143,232,0.15)' : '#B9D5F0',
+          bubbleTextColor: isDark ? '#90BFF0' : '#05192d',
           bubbleBorderRadius: 18,
           bubbleFromUserBackground: '#3B8FE8',
           bubbleFromUserTextColor: 'White',
           bubbleFromUserBorderRadius: 18,
           backgroundColor: 'transparent',
           hideUploadButton: true,
-          sendBoxBackground: isDark ? '#161B22' : 'White',
+          sendBoxBackground: isDark ? '#161B22' : '#FFFFFF',
           sendBoxTextColor: isDark ? '#F0F4F8' : '#1A1A1A',
+          primaryFont: "'DM Sans', sans-serif"
         };
 
         window.WebChat.renderWebChat(
