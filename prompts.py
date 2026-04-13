@@ -35,61 +35,42 @@ TONO: Cálido, conciso, máximo 3-4 oraciones por respuesta.
 NUNCA inventes precios, horarios o servicios que no están listados arriba.
 """
 
-# ── Mensajes de bienvenida por idioma ─────────────────────
-WELCOME_MESSAGES = {
-    "es": (
-        "🏨 ¡Bienvenido al Hotel Paradise International!\n"
-        "Soy su asistente virtual. ¿En qué puedo ayudarle hoy?\n\n"
-        "Puedo ayudarle con:\n"
-        "• Check-in / Check-out\n"
-        "• Room Service\n"
-        "• Reservas de restaurante\n"
-        "• Transporte\n"
-        "• Recomendaciones turísticas"
-    ),
-    "en": (
-        "🏨 Welcome to Hotel Paradise International!\n"
-        "I'm your virtual assistant. How can I help you today?\n\n"
-        "I can assist you with:\n"
-        "• Check-in / Check-out\n"
-        "• Room Service\n"
-        "• Restaurant reservations\n"
-        "• Transportation\n"
-        "• Tourist recommendations"
-    ),
-    "fr": (
-        "🏨 Bienvenue à l'Hôtel Paradise International!\n"
-        "Je suis votre assistant virtuel. Comment puis-je vous aider?\n\n"
-        "Je peux vous aider avec:\n"
-        "• Check-in / Check-out\n"
-        "• Service en chambre\n"
-        "• Réservations au restaurant\n"
-        "• Transport\n"
-        "• Recommandations touristiques"
-    ),
-}
+# ── Mensaje de bienvenida ──────────────────────────────────
+# Se envía al conectar y se traduce al idioma del huésped
+WELCOME_BASE = (
+    "🏨 ¡Bienvenido al Hotel Paradise International!\n"
+    "Soy su asistente virtual. ¿En qué puedo ayudarle hoy?\n\n"
+    "Puedo ayudarle con:\n"
+    "• Check-in / Check-out\n"
+    "• Room Service\n"
+    "• Reservas de restaurante\n"
+    "• Transporte\n"
+    "• Recomendaciones turísticas"
+)
 
 # ── Mensaje de escalamiento ────────────────────────────────
-ESCALATION_MESSAGE = {
-    "es": "Le comunico con recepción. Por favor llame a la Ext. 0 o WhatsApp: +1 (809) 555-0192.",
-    "en": "Connecting you with the front desk. Please call Ext. 0 or WhatsApp: +1 (809) 555-0192.",
-    "fr": "Je vous connecte à la réception. Appelez le poste 0 ou WhatsApp: +1 (809) 555-0192.",
-}
+# Mensaje base — el bot lo traduce dinámicamente al idioma del huésped
+ESCALATION_BASE = (
+    "Le comunico con recepción. "
+    "Por favor llame a la Ext. 0 o WhatsApp: +1 (809) 555-0192."
+)
 
-# ── Palabras clave para escalamiento ──────────────────────
+# ── Palabras clave para escalamiento (evaluadas sobre texto traducido al ES) ──
 ESCALATION_KEYWORDS = [
+    "agente",
     "queja",
-    "complaint",
-    "plainte",
     "hablar con",
-    "speak to",
-    "parler à",
-    "manager",
     "gerente",
-    "directeur",
     "problema grave",
-    "serious problem",
     "emergencia",
+    "agent",
+    "complaint",
+    "speak to",
+    "manager",
+    "serious problem",
     "emergency",
+    "plainte",
+    "parler à",
+    "directeur",
     "urgence",
 ]

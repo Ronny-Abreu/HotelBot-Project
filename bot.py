@@ -26,7 +26,7 @@ class HotelBot(ActivityHandler):
     ):
         for member in members_added:
             if member.id != turn_context.activity.recipient.id:
-                await turn_context.send_activity(prompts.WELCOME_MESSAGES["es"])
+                await turn_context.send_activity(prompts.WELCOME_BASE)
 
     # ── 2. Cuando el huésped escribe un mensaje ──
     async def on_message_activity(self, turn_context: TurnContext):
@@ -39,12 +39,14 @@ class HotelBot(ActivityHandler):
         if any(
             keyword in texto_traducido.lower() for keyword in prompts.ESCALATION_KEYWORDS
         ):
-            idioma_clave = (
-                idioma_detectado
-                if idioma_detectado in prompts.ESCALATION_MESSAGE
-                else "es"
-            )
-            await turn_context.send_activity(prompts.ESCALATION_MESSAGE[idioma_clave])
+            # Traducir el mensaje base al idioma del huésped dinámicamente
+            if idioma_detectado == "es":
+                mensaje_escalamiento = prompts.ESCALATION_BASE
+            else:
+                mensaje_escalamiento = await self._traducir_a(
+                    prompts.ESCALATION_BASE, idioma_detectado
+                )
+            await turn_context.send_activity(mensaje_escalamiento)
             return
 
         # C) Llamada al cerebro (Azure OpenAI)
@@ -57,11 +59,21 @@ class HotelBot(ActivityHandler):
 
     # ── Traducción ──
     async def _traducir(self, texto: str):
-        idioma_detectado = "es"
-        texto_traducido = texto
+        """Detecta el idioma del texto y lo traduce al español."""
+        return await self._llamar_translator(texto, "es", "es")
+
+    async def _traducir_a(self, texto: str, idioma_destino: str) -> str:
+        """Traduce un texto desde español al idioma_destino."""
+        _, resultado = await self._llamar_translator(texto, idioma_destino, "es")
+        return resultado
+
+    async def _llamar_translator(self, texto: str, idioma_destino: str, idioma_por_defecto: str):
+        """Llama a Azure Translator y retorna (idioma_detectado, texto_traducido)."""
+        idioma_detectado = idioma_por_defecto
+        texto_resultado = texto
 
         url = f"{CONFIG.TRANSLATOR_ENDPOINT}/translate"
-        params = {"api-version": "3.0", "to": "es"}
+        params = {"api-version": "3.0", "to": idioma_destino}
         headers = {
             "Ocp-Apim-Subscription-Key": CONFIG.TRANSLATOR_KEY,
             "Ocp-Apim-Subscription-Region": CONFIG.TRANSLATOR_REGION,
@@ -77,11 +89,11 @@ class HotelBot(ActivityHandler):
                 ) as resp:
                     resultado = await resp.json()
                     idioma_detectado = resultado[0]["detectedLanguage"]["language"]
-                    texto_traducido = resultado[0]["translations"][0]["text"]
+                    texto_resultado = resultado[0]["translations"][0]["text"]
         except Exception as e:
             print(f"[Translator Error] {e}")
 
-        return idioma_detectado, texto_traducido
+        return idioma_detectado, texto_resultado
 
     async def _consultar_openai(self, texto_traducido: str, idioma: str) -> str:
         try:
