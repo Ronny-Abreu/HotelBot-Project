@@ -37,7 +37,8 @@ class HotelBot(ActivityHandler):
 
         # B) Escalamiento — se evalúa sobre el texto ya traducido al español
         if any(
-            keyword in texto_traducido.lower() for keyword in prompts.ESCALATION_KEYWORDS
+            keyword in texto_traducido.lower()
+            for keyword in prompts.ESCALATION_KEYWORDS
         ):
             # Traducir el mensaje base al idioma del huésped dinámicamente
             if idioma_detectado == "es":
@@ -67,7 +68,9 @@ class HotelBot(ActivityHandler):
         _, resultado = await self._llamar_translator(texto, idioma_destino, "es")
         return resultado
 
-    async def _llamar_translator(self, texto: str, idioma_destino: str, idioma_por_defecto: str):
+    async def _llamar_translator(
+        self, texto: str, idioma_destino: str, idioma_por_defecto: str
+    ):
         """Llama a Azure Translator y retorna (idioma_detectado, texto_traducido)."""
         idioma_detectado = idioma_por_defecto
         texto_resultado = texto
