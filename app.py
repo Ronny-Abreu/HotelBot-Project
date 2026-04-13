@@ -94,10 +94,11 @@ async def index(req: Request) -> Response:
 
 APP = web.Application()
 APP.router.add_post("/api/messages", messages)
-APP.router.add_get("/", index)
 
 import os as _os
 if _os.path.isdir("web"):
+    APP.router.add_get("/", index)
+    APP.router.add_get("/index.html", index)
     APP.router.add_static("/", "web")
 
 if __name__ == "__main__":
