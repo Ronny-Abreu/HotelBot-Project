@@ -442,7 +442,7 @@
 
     function initWebChat() {
       const token = "{{WEB_CHAT_TOKEN}}";
-      if (!token || token.includes("ERROR") || token === "{{WEB_CHAT_TOKEN}}") {
+      if (!token || token.includes("ERROR") || token.startsWith("{{")) {
         document.getElementById('webchat-container').innerHTML = "<div style='padding:2rem;text-align:center;'>El bot se encuentra configurando sus permisos en Azure. Si usted es el administrador, revise la consola o el Secret Key.</div>";
         // Si no tenemos token permitimos fallar silenciosamente en la UI y mostrar mensaje.
       } else {
