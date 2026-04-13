@@ -39,6 +39,7 @@ jobs:
             startup.txt
             .python-version
             antenv/
+            web/
 
   deploy:
     runs-on: ubuntu-latest
