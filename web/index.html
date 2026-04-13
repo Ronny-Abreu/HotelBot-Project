@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Hotel Paradise International — Asistente Virtual Multilingüe con Azure AI y GPT-4o. Prueba el chatbot en vivo.">
+  <title>Hotel Paradise International — Asistente Virtual</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="#home" class="nav-logo">
+      <div class="nav-logo-mark">H</div>
+      <span class="nav-logo-text">Hotel Paradise</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Funciones</a></li>
+      <li><a href="#demo">Demo</a></li>
+      <li><a href="#chat">Chatbot</a></li>
+      <li><a href="#arquitectura">Arquitectura</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">☀️</button>
+      <a href="#chat" class="nav-cta">Hablar con el bot ↗</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <div class="hero-label">✦ Asistente AI 24/7</div>
+      <h1 class="hero-title display-font">
+        Atención hotelera<br>
+        <em>sin fronteras</em><br>
+        <span class="accent">de idioma</span>
+      </h1>
+      <p class="hero-desc">
+        Nuestro asistente virtual responde en el idioma de cada huésped — español, inglés, francés, árabe y más —
+        impulsado por Azure AI y OpenAI GPT-4o.
+      </p>
+      <div class="hero-actions">
+        <a href="#chat" class="btn-primary">🤖 Probar chatbot en vivo</a>
+        <a href="#features" class="btn-secondary">Ver funciones</a>
+      </div>
+    </div>
+
+    <div class="hero-visual" id="chatMockup">
+      <div class="float-badge badge-ar">🇸🇦 عربي — طارئ</div>
+      <div class="float-badge badge-fr">🇫🇷 Français — Bonjour</div>
+      <div class="float-badge badge-en">🇺🇸 English — Welcome</div>
+
+      <div class="chat-window">
+        <div class="chat-header">
+          <div class="chat-avatar">🏨</div>
+          <div class="chat-header-info">
+            <h4>Paradise Concierge AI</h4>
+            <p>En línea ahora</p>
+          </div>
+        </div>
+        <div class="chat-body">
+          <div class="msg bot" id="msg1">
+            <div class="msg-bubble">🏨 ¡Bienvenido al Hotel Paradise International!<br>Soy su asistente virtual. ¿En qué
+              puedo ayudarle?</div>
+            <div class="msg-lang">🌐 Español · Detección automática</div>
+          </div>
+          <div class="msg user" id="msg2">
+            <div class="msg-bubble">i speak english, give me welcome</div>
+            <div class="msg-lang">🇺🇸 Inglés detectado</div>
+          </div>
+          <div class="msg bot" id="msg3">
+            <div class="msg-bubble">Welcome! We're delighted to have you. How may I assist you today?</div>
+            <div class="msg-lang">🌐 Respondiendo en inglés</div>
+          </div>
+          <div class="msg user" id="msg4">
+            <div class="msg-bubble">طارئ</div>
+            <div class="msg-lang">🇸🇦 Árabe detectado</div>
+          </div>
+          <div class="msg bot" id="msg5">
+            <div class="msg-bubble">أتواصل مع الاستقبال. واتساب: ‎+1 (809) 555-0192</div>
+            <div class="msg-lang">🌐 Respondiendo en árabe</div>
+          </div>
+        </div>
+        <div class="chat-input-bar">
+          <input type="text" placeholder="Escribe en cualquier idioma..." readonly>
+          <button class="chat-send">↑</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-number stat-blue">60<span style="font-size:1.5rem">+</span></div>
+      <div class="stat-label">Idiomas soportados</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" style="color:white">24<span style="font-size:1.5rem;opacity:.5">/7</span></div>
+      <div class="stat-label">Disponibilidad</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number stat-accent">&lt;2<span style="font-size:1.5rem">s</span></div>
+      <div class="stat-label">Tiempo de respuesta</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" style="color:white">100<span style="font-size:1.5rem">%</span></div>
+      <div class="stat-label">En la nube Azure</div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="section-header">
+      <div class="section-tag">✦ Capacidades</div>
+      <h2 class="section-title display-font">Todo lo que necesita<br>un hotel moderno</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon icon-azure">🌐</div>
+        <h3 class="feature-title">Multilingüe nativo</h3>
+        <p class="feature-desc">Detecta automáticamente el idioma del huésped y responde en el mismo. Sin configuración
+          manual.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-orange">🏨</div>
+        <h3 class="feature-title">Check-in & Check-out</h3>
+        <p class="feature-desc">Informa horarios, requisitos y gestiona solicitudes de late check-out sin intervención
+          humana.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-azure">🍽️</div>
+        <h3 class="feature-title">Room service & restaurante</h3>
+        <p class="feature-desc">Pedidos 24 horas, reservas de mesa, menús y disponibilidad al instante para cada
+          huésped.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-orange">🚗</div>
+        <h3 class="feature-title">Transporte & tours</h3>
+        <p class="feature-desc">Traslados al aeropuerto, taxi, renta de autos y recomendaciones turísticas
+          personalizadas.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-azure">⚡</div>
+        <h3 class="feature-title">Escalamiento inteligente</h3>
+        <p class="feature-desc">Detecta emergencias y quejas en cualquier idioma y conecta con recepción en segundos.
+        </p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-orange">☁️</div>
+        <h3 class="feature-title">100% Azure Cloud</h3>
+        <p class="feature-desc">Azure Bot Service + Azure OpenAI GPT-4o + Azure Translator. Escalable, segura y en
+          producción.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LANGUAGES LIVE DEMO -->
+  <section class="languages-section" id="demo">
+    <div class="lang-inner">
+      <div>
+        <div class="section-tag" id="langTag" style="opacity:0">✦ Demo en vivo</div>
+        <h2 class="lang-title display-font">El bot entiende<br>a <em
+            style="color:var(--orange)">cualquier</em><br>huésped</h2>
+        <p class="lang-desc">El asistente detecta el idioma automáticamente, procesa con GPT-4o y responde en el mismo
+          idioma sin configuración.</p>
+        <div class="lang-flags">
+          <span class="lang-flag">🇪🇸 Español</span>
+          <span class="lang-flag">🇺🇸 English</span>
+          <span class="lang-flag">🇫🇷 Français</span>
+          <span class="lang-flag">🇸🇦 عربي</span>
+          <span class="lang-flag">🇩🇪 Deutsch</span>
+          <span class="lang-flag">🇯🇵 日本語</span>
+          <span class="lang-flag">+55 más</span>
+        </div>
+      </div>
+      <div class="lang-messages">
+        <div class="lang-msg es">
+          <div class="lang-msg-label">🇪🇸 Español</div>
+          "¿A qué hora es el check-in?" → 3:00 PM. Si llega antes, guardamos su equipaje.
+        </div>
+        <div class="lang-msg en">
+          <div class="lang-msg-label">🇺🇸 English</div>
+          "What time is breakfast?" → Served 6:30–11:00 AM at El Mangú, Floor 1.
+        </div>
+        <div class="lang-msg fr">
+          <div class="lang-msg-label">🇫🇷 Français</div>
+          "Je voudrais le room service" → Disponible 24h. Composez le poste 3.
+        </div>
+        <div class="lang-msg ar">
+          <div class="lang-msg-label">🇸🇦 عربي</div>
+          "طارئ" ← يرجى الاتصال على تحويلة 0
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOT EMBED EN VIVO -->
+  <section class="bot-section" id="chat">
+    <div class="bot-inner">
+      <div class="section-tag" id="botTag" style="opacity:0">✦ Chatbot en producción</div>
+      <h2 class="bot-title display-font">Habla con el asistente<br><em style="color:var(--orange)">ahora mismo</em></h2>
+      <p class="bot-subtitle">Escribe en tu idioma — el bot responde en el mismo. Desplegado en Azure App Service.</p>
+      <div class="bot-frame-wrapper">
+        <!-- 
+        INSTRUCCIONES: Reemplaza YOUR_SECRET_KEY con la clave del canal Web Chat de Azure:
+        HotelBotITLA2 → Canales → Web Chat → Secret Keys
+      -->
+        <iframe id="botIframe" src="https://webchat.botframework.com/embed/HotelBotITLA2?s={{WEB_CHAT_SECRET}}"
+          title="Hotel Paradise — Asistente Virtual" allow="microphone;">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section" id="arquitectura">
+    <div class="section-header">
+      <div class="section-tag" id="howTag">✦ Arquitectura</div>
+      <h2 class="section-title display-font" id="howTitle">Así funciona<br>la magia</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3 class="step-title">Azure Translator detecta</h3>
+        <p class="step-desc">El mensaje del huésped llega y Azure Translator identifica el idioma en milisegundos y lo
+          traduce al español para procesarlo.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3 class="step-title">GPT-4o procesa</h3>
+        <p class="step-desc">Azure OpenAI con GPT-4o entiende la intención y genera una respuesta precisa usando el
+          conocimiento del hotel.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3 class="step-title">Bot Service entrega</h3>
+        <p class="step-desc">Azure Bot Service traduce la respuesta al idioma original y la entrega en menos de 2
+          segundos directamente al huésped.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-bg-left"></div>
+    <div class="cta-bg-right"></div>
+    <div class="cta-inner">
+      <div class="cta-badge">✦ Proyecto ITLA 2026</div>
+      <h2 class="cta-title display-font">Eleva la experiencia<br>de tus <em style="color:var(--orange)">huéspedes</em>
+      </h2>
+      <p class="cta-sub">Hotel Paradise International · Santo Domingo, República Dominicana · Powered by Azure AI</p>
+      <div class="cta-actions">
+        <a href="https://github.com/Ronny-Abreu/HotelBot-Project" target="_blank" class="btn-primary">Ver repositorio en
+          GitHub</a>
+        <a href="#home" class="btn-secondary">Volver al inicio</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Hotel Paradise International © 2026</div>
+    <div class="footer-copy">Proyecto ITLA · Prof. Ramón Alvarez</div>
+    <div class="footer-links">
+      <a href="https://azure.microsoft.com" target="_blank">Azure</a>
+      <a href="https://openai.com" target="_blank">OpenAI</a>
+      <a href="https://github.com/Ronny-Abreu/HotelBot-Project" target="_blank">GitHub</a>
+    </div>
+  </footer>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Dark mode — respeta preferencia del sistema
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDark) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.getElementById('themeToggle').textContent = '🌙';
+    }
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const html = document.documentElement;
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
+    });
+
+    // ── Hero entry ──
+    const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    heroTl
+      .to('.hero-label', { opacity: 1, y: 0, duration: 0.6, delay: 0.3 })
+      .to('.hero-title', { opacity: 1, y: 0, duration: 0.8 }, '-=0.2')
+      .to('.hero-desc', { opacity: 1, y: 0, duration: 0.7 }, '-=0.4')
+      .to('.hero-actions', { opacity: 1, y: 0, duration: 0.6 }, '-=0.3')
+      .to('#chatMockup', { opacity: 1, x: 0, duration: 0.9, ease: 'power2.out' }, '-=0.6');
+
+    // Chat messages stagger
+    gsap.to(['#msg1', '#msg2', '#msg3', '#msg4', '#msg5'], {
+      opacity: 1, y: 0, duration: 0.5,
+      stagger: 0.4, delay: 1.2, ease: 'power2.out'
+    });
+
+    // Float badges
+    gsap.to(['.badge-ar', '.badge-en', '.badge-fr'], {
+      opacity: 1, duration: 0.6, stagger: 0.3, delay: 2, ease: 'power2.out'
+    });
+
+    // ── Stats ──
+    gsap.to('.stat-item', {
+      scrollTrigger: { trigger: '.stats-bar', start: 'top 80%' },
+      opacity: 1, y: 0, duration: 0.6, stagger: 0.15, ease: 'power2.out'
+    });
+
+    // ── Section tags ──
+    ['#langTag', '#howTag', '#botTag'].forEach(sel => {
+      gsap.to(sel, {
+        scrollTrigger: { trigger: sel, start: 'top 85%' },
+        opacity: 1, duration: 0.5, ease: 'power2.out'
+      });
+    });
+
+    // ── Section titles ──
+    ['.section-title', '.lang-title', '#howTitle', '.bot-title'].forEach(sel => {
+      gsap.to(sel, {
+        scrollTrigger: { trigger: sel, start: 'top 85%' },
+        opacity: 1, y: 0, duration: 0.7, ease: 'power3.out'
+      });
+    });
+
+    // ── Features ──
+    gsap.to('.feature-card', {
+      scrollTrigger: { trigger: '.features-grid', start: 'top 75%' },
+      opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out'
+    });
+
+    // ── Language demo ──
+    gsap.to('.lang-desc', {
+      scrollTrigger: { trigger: '.lang-desc', start: 'top 85%' },
+      opacity: 1, duration: 0.7, ease: 'power2.out'
+    });
+
+    gsap.to('.lang-flags', {
+      scrollTrigger: { trigger: '.lang-flags', start: 'top 85%' },
+      opacity: 1, duration: 0.7, delay: 0.2, ease: 'power2.out'
+    });
+
+    gsap.to('.lang-msg', {
+      scrollTrigger: { trigger: '.lang-messages', start: 'top 80%' },
+      opacity: 1, x: 0, duration: 0.6, stagger: 0.25, ease: 'power2.out'
+    });
+
+    // ── Bot section ──
+    gsap.to('.bot-subtitle', {
+      scrollTrigger: { trigger: '.bot-subtitle', start: 'top 85%' },
+      opacity: 1, duration: 0.7, ease: 'power2.out'
+    });
+
+    gsap.to('.bot-frame-wrapper', {
+      scrollTrigger: { trigger: '.bot-frame-wrapper', start: 'top 80%' },
+      opacity: 1, y: 0, duration: 0.9, ease: 'power3.out'
+    });
+
+    // ── Steps ──
+    gsap.to('.step', {
+      scrollTrigger: { trigger: '.steps-grid', start: 'top 75%' },
+      opacity: 1, y: 0, duration: 0.7, stagger: 0.2, ease: 'power3.out'
+    });
+
+    // ── CTA ──
+    const ctaTl = gsap.timeline({
+      scrollTrigger: { trigger: '.cta-section', start: 'top 70%' }
+    });
+    ctaTl
+      .to('.cta-badge', { opacity: 1, duration: 0.5 })
+      .to('.cta-title', { opacity: 1, duration: 0.7 }, '-=0.2')
+      .to('.cta-sub', { opacity: 1, duration: 0.5 }, '-=0.3')
+      .to('.cta-actions', { opacity: 1, duration: 0.5 }, '-=0.2');
+
+    // Chat window float loop
+    gsap.to('#chatMockup', {
+      y: -8, duration: 3, ease: 'sine.inOut',
+      yoyo: true, repeat: -1, delay: 2
+    });
+  </script>
+</body>
+
+</html>
