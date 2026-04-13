@@ -21,6 +21,7 @@ CONFIG = DefaultConfig()
 SETTINGS = BotFrameworkAdapterSettings(
     app_id=CONFIG.APP_ID,
     app_password=CONFIG.APP_PASSWORD,
+    channel_auth_tenant=CONFIG.APP_TENANT_ID,
 )
 
 ADAPTER = BotFrameworkAdapter(SETTINGS)
