@@ -63,10 +63,10 @@ nav {
 
 .nav-logo-mark {
   width: 32px; height: 32px;
-  background: linear-gradient(135deg, var(--azure), var(--orange));
-  border-radius: 8px;
+  background: transparent;
+  border-radius: 0;
   display: flex; align-items: center; justify-content: center;
-  color: white; font-size: 14px; font-weight: 600;
+  color: var(--text-primary); font-size: 1.5rem; font-weight: 700;
 }
 
 .nav-logo-text {
@@ -95,7 +95,8 @@ nav {
 .theme-btn {
   width: 40px; height: 40px;
   border-radius: 50%;
-  border: 0.5px solid var(--border);
+  border: none !important;
+  outline: none !important;
   background: transparent; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   font-size: 16px; color: var(--text-secondary);
@@ -233,10 +234,10 @@ nav {
 [data-theme="dark"] .chat-header { background: var(--dark-card); }
 
 .chat-avatar {
-  width: 40px; height: 40px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--azure), var(--orange));
+  width: 40px; height: 40px;
+  background: transparent;
   display: flex; align-items: center; justify-content: center;
-  color: white; font-size: 18px;
+  font-size: 24px;
 }
 
 .chat-header-info h4 {
@@ -657,10 +658,10 @@ footer {
 [data-theme="dark"] .chat-modal-header { background: var(--dark-card); }
 
 .chat-modal-avatar {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--azure), var(--orange));
+  width: 32px; height: 32px; border-radius: 0;
+  background: transparent;
   display: flex; align-items: center; justify-content: center;
-  color: white; font-size: 16px;
+  font-size: 24px;
 }
 
 .chat-modal-info { flex: 1; }
@@ -693,8 +694,28 @@ footer {
 
 /* WebChat overrides for fade-in & fonts */
 #webchat-container { width: 100%; height: 100%; }
-#webchat-container * { font-family: 'DM Sans', sans-serif !important; }
+#webchat-container * { 
+  font-family: 'DM Sans', sans-serif !important; 
+  outline: none !important; 
+  box-shadow: none !important; 
+}
 [data-theme="dark"] #webchat-container { background-color: var(--dark-bg) !important; }
+
+/* Remove all focus outlines (dotted borders) from WebChat elements */
+#webchat-container .webchat__activity:focus,
+#webchat-container .webchat__bubble:focus,
+#webchat-container button:focus,
+#webchat-container div:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove borders from bubbles */
+.webchat__bubble, .webchat__bubble__content {
+  border: none !important;
+  box-shadow: none !important;
+}
+
 
 /* Custom bot messages fade-in */
 .webchat__bubble {
