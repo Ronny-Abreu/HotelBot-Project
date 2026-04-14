@@ -34,6 +34,7 @@ body {
   color: var(--text-primary);
   transition: background 0.4s, color 0.4s;
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body.chat-open {
@@ -109,6 +110,7 @@ nav {
   margin: 0 auto;
   gap: 5rem;
   position: relative;
+  overflow: hidden;
 }
 
 .hero-noise {
