@@ -11,7 +11,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&family=Poppins:wght@700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 
@@ -23,7 +23,7 @@
 <body>
 
   <!-- NAVBAR -->
-  <nav>
+  <nav id="navbar">
     <a href="#home" class="nav-logo">
       <div class="nav-logo-mark">H</div>
       <span class="nav-logo-text">Hotel Paradise</span>
@@ -40,27 +40,44 @@
 
   <!-- HERO -->
   <section class="hero" id="home">
+    <div class="hero-noise"></div>
+    <div class="hero-glow hero-glow-1"></div>
+    <div class="hero-glow hero-glow-2"></div>
+
     <div class="hero-content">
-      <div class="hero-label">✦ Asistente AI 24/7</div>
-      <h1 class="hero-title display-font">
-        Atención hotelera<br>
-        <em>sin fronteras</em><br>
-        <span class="accent">de idioma</span>
+      <div class="hero-label">
+        <span class="hero-label-dot"></span>
+        Asistente AI 24/7
+      </div>
+
+      <h1 class="hero-title">
+        <span class="title-line title-thin">Atención hotelera</span>
+        <span class="title-line title-bold">sin fronteras</span>
+        <span class="title-line title-accent-wrap">de <em class="title-accent">idioma</em></span>
       </h1>
+
       <p class="hero-desc">
-        Nuestro asistente virtual responde en el idioma de cada huésped — español, inglés, francés, árabe y más —
-        impulsado por Azure AI y OpenAI GPT-4o.
+        Nuestro asistente responde en el idioma de cada huésped — español, inglés, francés, árabe y más — impulsado por
+        <strong>Azure AI</strong> y <strong>GPT-4o</strong>.
       </p>
+
       <div class="hero-actions">
-        <button onclick="openChatBot()" class="btn-primary">🤖 Chatear ahora</button>
-        <a href="#features" class="btn-secondary">Ver funciones</a>
+        <button onclick="openChatBot()" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Chatear ahora
+        </button>
+        <a href="#features" class="btn-ghost">Ver funciones ↓</a>
       </div>
     </div>
 
     <div class="hero-visual" id="chatMockup">
       <div class="float-badge badge-ar">🇸🇦 عربي — طارئ</div>
-      <div class="float-badge badge-fr">🇫🇷 Français — Bonjour</div>
-      <div class="float-badge badge-en">🇺🇸 English — Welcome</div>
+      <div class="float-badge badge-fr">🇫🇷 Bonjour</div>
+      <div class="float-badge badge-en">🇺🇸 Welcome!</div>
 
       <div class="chat-window">
         <div class="chat-header">
@@ -69,6 +86,7 @@
             <h4>Paradise Concierge AI</h4>
             <p>En línea ahora</p>
           </div>
+          <div class="chat-header-badge">GPT-4o</div>
         </div>
         <div class="chat-body">
           <div class="msg bot" id="msg1">
@@ -77,11 +95,11 @@
             <div class="msg-lang">🌐 Español · Detección automática</div>
           </div>
           <div class="msg user" id="msg2">
-            <div class="msg-bubble">i speak english, give me welcome</div>
+            <div class="msg-bubble">i speak english, what time is breakfast?</div>
             <div class="msg-lang">🇺🇸 Inglés detectado</div>
           </div>
           <div class="msg bot" id="msg3">
-            <div class="msg-bubble">Welcome! We're delighted to have you. How may I assist you today?</div>
+            <div class="msg-bubble">Breakfast is served 6:30–11:00 AM at El Mangú Restaurant, Floor 1. Enjoy!</div>
             <div class="msg-lang">🌐 Respondiendo en inglés</div>
           </div>
           <div class="msg user" id="msg4">
@@ -101,25 +119,56 @@
     </div>
   </section>
 
-  <!-- STATS BAR -->
-  <div class="stats-bar">
-    <div class="stat-item">
-      <div class="stat-number stat-blue" data-target="60" data-suffix="+">0<span style="font-size:1.5rem">+</span></div>
-      <div class="stat-label">Idiomas soportados</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number" style="color:white" data-target="24" data-suffix="/7">0<span
-          style="font-size:1.5rem;opacity:.5">/7</span></div>
-      <div class="stat-label">Disponibilidad</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number stat-accent" data-target="100" data-suffix="%">0<span style="font-size:1.5rem">%</span>
+  <!-- STATS CAROUSEL -->
+  <div class="stats-track-wrapper">
+    <div class="stats-track">
+      <div class="stats-inner" id="statsInner">
+        <div class="stat-pill"><span class="stat-num stat-blue"><span class="counter"
+              data-target="60">0</span>+</span><span class="stat-lbl">Idiomas soportados</span></div>
+        <div class="stat-pill"><span class="stat-num stat-white"><span class="counter"
+              data-target="24">0</span>/7</span><span class="stat-lbl">Disponibilidad</span></div>
+        <div class="stat-pill"><span class="stat-num stat-orange"><span class="counter"
+              data-target="100">0</span>%</span><span class="stat-lbl">Precisión de IA</span></div>
+
+        <div class="stat-pill"><span class="stat-num stat-blue">&lt;<span class="counter"
+              data-target="2">0</span>s</span><span class="stat-lbl">Tiempo de respuesta</span></div>
+
+        <!-- duplicado para loop -->
+        <div class="stat-pill" aria-hidden="true"><span class="stat-num stat-blue"><span class="counter"
+              data-target="60">0</span>+</span><span class="stat-lbl">Idiomas soportados</span></div>
+        <div class="stat-pill" aria-hidden="true"><span class="stat-num stat-white"><span class="counter"
+              data-target="24">0</span>/7</span><span class="stat-lbl">Disponibilidad</span></div>
+        <div class="stat-pill" aria-hidden="true"><span class="stat-num stat-orange"><span class="counter"
+              data-target="100">0</span>%</span><span class="stat-lbl">Precisión de IA</span></div>
+
+        <div class="stat-pill" aria-hidden="true"><span class="stat-num stat-blue">&lt;<span class="counter"
+              data-target="2">0</span>s</span><span class="stat-lbl">Tiempo de respuesta</span></div>
+
       </div>
-      <div class="stat-label">Precisión de IA</div>
     </div>
-    <div class="stat-item">
-      <div class="stat-number" style="color:white">100<span style="font-size:1.5rem">%</span></div>
-      <div class="stat-label">En la nube Azure</div>
+  </div>
+
+  <div class="tech-track-wrapper">
+    <div class="tech-inner">
+      <img src="src/azureopenai.png" alt="Azure AI">
+      <img src="src/openai.svg" alt="OpenAI" class="tech-gray">
+      <img src="src/python-svgrepo-com.svg" alt="Python" class="tech-gray">
+      <img src="src/language-translation-svgrepo-com.svg" alt="Translation" class="tech-gray">
+
+      <img src="src/azureopenai.png" alt="Azure AI" aria-hidden="true">
+      <img src="src/openai.svg" alt="OpenAI" class="tech-gray" aria-hidden="true">
+      <img src="src/python-svgrepo-com.svg" alt="Python" class="tech-gray" aria-hidden="true">
+      <img src="src/language-translation-svgrepo-com.svg" alt="Translation" class="tech-gray" aria-hidden="true">
+
+      <img src="src/azureopenai.png" alt="Azure AI" aria-hidden="true">
+      <img src="src/openai.svg" alt="OpenAI" class="tech-gray" aria-hidden="true">
+      <img src="src/python-svgrepo-com.svg" alt="Python" class="tech-gray" aria-hidden="true">
+      <img src="src/language-translation-svgrepo-com.svg" alt="Translation" class="tech-gray" aria-hidden="true">
+
+      <img src="src/azureopenai.png" alt="Azure AI" aria-hidden="true">
+      <img src="src/openai.svg" alt="OpenAI" class="tech-gray" aria-hidden="true">
+      <img src="src/python-svgrepo-com.svg" alt="Python" class="tech-gray" aria-hidden="true">
+      <img src="src/language-translation-svgrepo-com.svg" alt="Translation" class="tech-gray" aria-hidden="true">
     </div>
   </div>
 
@@ -127,7 +176,10 @@
   <section class="features" id="features">
     <div class="section-header">
       <div class="section-tag">✦ Capacidades</div>
-      <h2 class="section-title display-font">Todo lo que necesita<br>un hotel moderno</h2>
+      <h2 class="section-title">
+        <span class="st-thin">Todo lo que necesita</span>
+        <span class="st-bold">un hotel moderno</span>
+      </h2>
     </div>
     <div class="features-grid">
       <div class="feature-card">
@@ -160,80 +212,153 @@
         <p class="feature-desc">Detecta emergencias y quejas en cualquier idioma y conecta con recepción en segundos.
         </p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon icon-orange">☁️</div>
-        <h3 class="feature-title">100% Azure Cloud</h3>
-        <p class="feature-desc">Azure Bot Service + Azure OpenAI GPT-4o + Azure Translator. Escalable, segura y en
-          producción.</p>
-      </div>
     </div>
   </section>
 
-  <!-- LANGUAGES LIVE DEMO -->
-  <section class="languages-section" id="demo">
-    <div class="lang-inner">
-      <div>
-        <div class="section-tag" id="langTag" style="opacity:0">✦ Demo en vivo</div>
-        <h2 class="lang-title display-font">El bot entiende<br>a <em
-            style="color:var(--orange)">cualquier</em><br>huésped</h2>
-        <p class="lang-desc">El asistente detecta el idioma automáticamente, procesa con GPT-4o y responde en el mismo
+  <!-- DEMO — LAYOUT 2 COL-->
+  <section class="demo-section" id="demo">
+    <div class="demo-inner">
+
+      <!-- COL IZQUIERDA -->
+      <div class="demo-left-col">
+        <div class="section-tag demo-tag">✦ Demo en vivo</div>
+        <h2 class="demo-title">
+          <span class="st-thin">El bot entiende</span>
+          <span class="st-bold">a cualquier<br>huésped</span>
+        </h2>
+        <p class="demo-desc">El asistente detecta el idioma automáticamente, procesa con GPT-4o y responde en el mismo
           idioma sin configuración.</p>
-        <div class="lang-flags">
-          <span class="lang-flag">🇪🇸 Español</span>
-          <span class="lang-flag">🇺🇸 English</span>
-          <span class="lang-flag">🇫🇷 Français</span>
-          <span class="lang-flag">🇸🇦 عربي</span>
-          <span class="lang-flag">🇩🇪 Deutsch</span>
-          <span class="lang-flag">🇯🇵 日本語</span>
-          <span class="lang-flag">+55 más</span>
+        <div class="demo-flags">
+          <span class="demo-flag"><span class="df-code">ES</span> Español</span>
+          <span class="demo-flag"><span class="df-code">US</span> English</span>
+          <span class="demo-flag"><span class="df-code">FR</span> Français</span>
+          <span class="demo-flag"><span class="df-code">SA</span> عربي</span>
+          <span class="demo-flag"><span class="df-code">DE</span> Deutsch</span>
+          <span class="demo-flag"><span class="df-code">JP</span> 日本語</span>
+          <span class="demo-flag demo-flag-more">+55 más</span>
         </div>
       </div>
-      <div class="lang-messages">
-        <div class="lang-msg es">
-          <div class="lang-msg-label">🇪🇸 Español</div>
-          "¿A qué hora es el check-in?" → 3:00 PM. Si llega antes, guardamos su equipaje.
-        </div>
-        <div class="lang-msg en">
-          <div class="lang-msg-label">🇺🇸 English</div>
-          "What time is breakfast?" → Served 6:30–11:00 AM at El Mangú, Floor 1.
-        </div>
-        <div class="lang-msg fr">
-          <div class="lang-msg-label">🇫🇷 Français</div>
-          "Je voudrais le room service" → Disponible 24h. Composez le poste 3.
-        </div>
-        <div class="lang-msg ar">
-          <div class="lang-msg-label">🇸🇦 عربي</div>
-          "طارئ" ← يرجى الاتصال على تحويلة 0
+
+      <!-- COL DERECHA: cards que van apareciendo al scroll -->
+      <div class="demo-right-col">
+        <div class="demo-card-scroll-list">
+
+          <div class="dlang-card dlang-es" data-dlang="0">
+            <div class="dlang-top"><span class="dlang-code">ES</span><span class="dlang-name">ESPAÑOL</span></div>
+            <p class="dlang-text">"¿A qué hora es el check-in?" → 3:00 PM. Si llega antes, guardamos su equipaje.</p>
+          </div>
+
+          <div class="dlang-card dlang-en" data-dlang="1">
+            <div class="dlang-top"><span class="dlang-code">US</span><span class="dlang-name">ENGLISH</span></div>
+            <p class="dlang-text">"What time is breakfast?" → Served 6:30–11:00 AM at El Mangú, Floor 1.</p>
+          </div>
+
+          <div class="dlang-card dlang-fr" data-dlang="2">
+            <div class="dlang-top"><span class="dlang-code">FR</span><span class="dlang-name">FRANÇAIS</span></div>
+            <p class="dlang-text">"Je voudrais le room service" → Disponible 24h. Composez le poste 3.</p>
+          </div>
+
+          <div class="dlang-card dlang-ar" data-dlang="3">
+            <div class="dlang-top"><span class="dlang-code">SA</span><span class="dlang-name">عربي</span></div>
+            <p class="dlang-text" dir="rtl">"طارئ" ← يرجى الاتصال على تحويلة 0</p>
+          </div>
+
         </div>
       </div>
+
     </div>
   </section>
 
-
-  <!-- HOW IT WORKS -->
-  <section class="how-section" id="arquitectura">
+  <!-- ARQUITECTURA — ROADMAP STYLE -->
+  <section class="arch-section" id="arquitectura">
+    <div class="arch-noise"></div>
     <div class="section-header">
-      <div class="section-tag" id="howTag">✦ Arquitectura</div>
-      <h2 class="section-title display-font" id="howTitle">Así funciona<br>la magia</h2>
+      <div class="section-tag" style="background:rgba(59,143,232,0.15);color:#90BFF0;">✦ Arquitectura</div>
+      <h2 class="section-title" style="color:white;">
+        <span class="st-thin">Así funciona</span>
+        <span class="st-bold">la magia</span>
+      </h2>
     </div>
-    <div class="steps-grid">
-      <div class="step">
-        <div class="step-num">01</div>
-        <h3 class="step-title">Azure Translator detecta</h3>
-        <p class="step-desc">El mensaje del huésped llega y Azure Translator identifica el idioma en milisegundos y lo
-          traduce al español para procesarlo.</p>
+
+    <div class="arch-flow">
+      <!-- Step 1 -->
+      <div class="arch-node" id="arch-node-1">
+        <div class="arch-node-icon">💬</div>
+        <div class="arch-node-body">
+          <div class="arch-node-badge">Cliente</div>
+          <h4 class="arch-node-title">Huésped escribe</h4>
+          <p class="arch-node-desc">El huésped envía un mensaje en cualquier idioma desde la interfaz web.</p>
+        </div>
+        <div class="arch-status arch-status-on">● Activo</div>
       </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <h3 class="step-title">GPT-4o procesa</h3>
-        <p class="step-desc">Azure OpenAI con GPT-4o entiende la intención y genera una respuesta precisa usando el
-          conocimiento del hotel.</p>
+
+      <div class="arch-connector" id="arch-conn-1">
+        <div class="arch-conn-line"></div>
+        <div class="arch-conn-dot"></div>
       </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <h3 class="step-title">Bot Service entrega</h3>
-        <p class="step-desc">Azure Bot Service traduce la respuesta al idioma original y la entrega en menos de 2
-          segundos directamente al huésped.</p>
+
+      <!-- Step 2 -->
+      <div class="arch-node" id="arch-node-2">
+        <div class="arch-node-icon"><img src="src/azureopenai.png" width="24" height="24" alt="Azure"
+            style="border-radius:6px; object-fit: contain;"></div>
+        <div class="arch-node-body">
+          <div class="arch-node-badge">Azure Bot Service</div>
+          <h4 class="arch-node-title">Recepción del mensaje</h4>
+          <p class="arch-node-desc">Azure Bot Service recibe y autentica el turno de conversación.</p>
+        </div>
+        <div class="arch-status arch-status-on">● En línea</div>
+      </div>
+
+      <div class="arch-connector" id="arch-conn-2">
+        <div class="arch-conn-line"></div>
+        <div class="arch-conn-dot"></div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="arch-node" id="arch-node-3">
+        <div class="arch-node-icon"><img src="src/language-translation-svgrepo-com.svg" width="24" height="24"
+            alt="Azure" style="border-radius:6px; object-fit: contain;"></div>
+        <div class="arch-node-body">
+          <div class="arch-node-badge">Azure Translator</div>
+          <h4 class="arch-node-title">Detección & Traducción</h4>
+          <p class="arch-node-desc">Detecta el idioma en milisegundos y traduce al español para su procesamiento.</p>
+        </div>
+        <div class="arch-status arch-status-on">● Conectado</div>
+      </div>
+
+      <div class="arch-connector" id="arch-conn-3">
+        <div class="arch-conn-line"></div>
+        <div class="arch-conn-dot"></div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="arch-node arch-node-highlight" id="arch-node-4">
+        <div class="arch-node-icon"><img src="src/openai.svg" width="24" height="24" alt="OpenAI"
+            style="border-radius:6px; filter: grayscale(1) brightness(0.2);"></div>
+        <div class="arch-node-body">
+          <div class="arch-node-badge">Azure OpenAI — GPT-4o</div>
+          <h4 class="arch-node-title">Procesamiento inteligente</h4>
+          <p class="arch-node-desc">GPT-4o entiende la intención, consulta el knowledge base del hotel y genera la
+            respuesta ideal.</p>
+        </div>
+        <div class="arch-status arch-status-on">● Procesando</div>
+      </div>
+
+      <div class="arch-connector" id="arch-conn-4">
+        <div class="arch-conn-line"></div>
+        <div class="arch-conn-dot"></div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="arch-node" id="arch-node-5">
+        <div class="arch-node-icon">📤</div>
+        <div class="arch-node-body">
+          <div class="arch-node-badge">Respuesta Final</div>
+          <h4 class="arch-node-title">Entrega al huésped</h4>
+          <p class="arch-node-desc">La respuesta se traduce al idioma original del huésped y se entrega en menos de 2
+            segundos.</p>
+        </div>
+        <div class="arch-status arch-status-ok">● Entregado</div>
       </div>
     </div>
   </section>
@@ -244,13 +369,14 @@
     <div class="cta-bg-right"></div>
     <div class="cta-inner">
       <div class="cta-badge">✦ No pierdas reservas</div>
-      <h2 class="cta-title display-font">Eleva la experiencia<br>de tus <em style="color:var(--orange)">huéspedes</em>
+      <h2 class="cta-title">
+        <span class="ct-thin">Eleva la experiencia</span>
+        <span class="ct-bold">de tus <em>huéspedes</em></span>
       </h2>
       <p class="cta-sub">Hotel Paradise International · Santo Domingo, República Dominicana · Powered by Azure AI</p>
       <div class="cta-actions">
-        <a href="https://github.com/Ronny-Abreu/HotelBot-Project" target="_blank" class="btn-primary">Ver en
-          GitHub</a>
-        <a href="#home" class="btn-secondary">Volver al inicio</a>
+        <a href="https://github.com/Ronny-Abreu/HotelBot-Project" target="_blank" class="btn-primary">Ver en GitHub</a>
+        <a href="#home" class="btn-ghost">Volver al inicio</a>
       </div>
     </div>
   </section>
@@ -291,153 +417,167 @@
       </div>
       <button class="chat-modal-close" onclick="closeChatBot()">✕</button>
     </div>
-    <div class="chat-modal-body" id="webchat-container">
-      <!-- WebChat SDK inyectado aquí -->
-    </div>
-    <div class="chat-modal-footer">
-      Powered by Azure Bot Service + GPT-4o
-    </div>
+    <div class="chat-modal-body" id="webchat-container"></div>
+    <div class="chat-modal-footer">Powered by Azure Bot Service + GPT-4o</div>
   </div>
 
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    // Por defecto forzamos Light Mode en todo dispositivo
+    // ── THEME ──
     const metaTheme = document.getElementById('theme-color-meta');
     document.documentElement.setAttribute('data-theme', 'light');
-    if (metaTheme) metaTheme.setAttribute('content', '#FFFFFF');
-
     document.getElementById('themeToggle').addEventListener('click', () => {
-      const html = document.documentElement;
-      const isDark = html.getAttribute('data-theme') === 'dark';
-      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
       document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
       if (metaTheme) metaTheme.setAttribute('content', isDark ? '#FFFFFF' : '#0D1117');
     });
 
-    // ── Hero entry ──
+    // ── HERO ENTRY ──
     const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
     heroTl
-      .to('.hero-label', { opacity: 1, y: 0, duration: 0.6, delay: 0.3 })
-      .to('.hero-title', { opacity: 1, y: 0, duration: 0.8 }, '-=0.2')
-      .to('.hero-desc', { opacity: 1, y: 0, duration: 0.7 }, '-=0.4')
-      .to('.hero-actions', { opacity: 1, y: 0, duration: 0.6 }, '-=0.3')
-      .to('#chatMockup', { opacity: 1, x: 0, duration: 0.9, ease: 'power2.out' }, '-=0.6');
+      .to('.hero-label', { opacity: 1, y: 0, duration: 0.6, delay: 0.4 })
+      .to('.title-line', { opacity: 1, y: 0, duration: 0.7, stagger: 0.15 }, '-=0.2')
+      .to('.hero-desc', { opacity: 1, y: 0, duration: 0.6 }, '-=0.2')
+      .to('.hero-actions', { opacity: 1, y: 0, duration: 0.5 }, '-=0.2')
+      .to('#chatMockup', { opacity: 1, x: 0, duration: 0.9, ease: 'power2.out' }, '-=0.7');
 
-    // Chat messages stagger
     gsap.to(['#msg1', '#msg2', '#msg3', '#msg4', '#msg5'], {
-      opacity: 1, y: 0, duration: 0.5,
-      stagger: 0.4, delay: 1.2, ease: 'power2.out'
+      opacity: 1, y: 0, duration: 0.5, stagger: 0.4, delay: 1.4, ease: 'power2.out'
     });
 
-    // Float badges
     gsap.to(['.badge-ar', '.badge-en', '.badge-fr'], {
-      opacity: 1, duration: 0.6, stagger: 0.3, delay: 2, ease: 'power2.out'
+      opacity: 1, duration: 0.5, stagger: 0.3, delay: 2.2, ease: 'power2.out'
     });
 
-    // ── Stats ──
-    gsap.to('.stat-item', {
-      scrollTrigger: { trigger: '.stats-bar', start: 'top 80%' },
-      opacity: 1, y: 0, duration: 0.6, stagger: 0.15, ease: 'power2.out'
+    // chat window float
+    gsap.to('#chatMockup', {
+      y: -10, duration: 3.5, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 2.5
     });
 
-    // ── Section tags ──
-    ['#langTag', '#howTag', '#botTag'].forEach(sel => {
-      gsap.to(sel, {
-        scrollTrigger: { trigger: sel, start: 'top 85%' },
-        opacity: 1, duration: 0.5, ease: 'power2.out'
-      });
+    // ── STATS MARQUEE ──
+    // CSS handles the infinite scroll animation
+
+    // ── FEATURES SCROLL ──
+    gsap.to('.section-tag', {
+      scrollTrigger: { trigger: '.features', start: 'top 85%' },
+      opacity: 1, y: 0, duration: 0.5
     });
 
-    // ── Section titles ──
-    ['.section-title', '.lang-title', '#howTitle', '.bot-title'].forEach(sel => {
-      gsap.to(sel, {
-        scrollTrigger: { trigger: sel, start: 'top 85%' },
-        opacity: 1, y: 0, duration: 0.7, ease: 'power3.out'
-      });
+    gsap.to('.section-title', {
+      scrollTrigger: { trigger: '.features', start: 'top 82%' },
+      opacity: 1, y: 0, duration: 0.7, stagger: 0.1
     });
 
-    // ── Features ──
     gsap.to('.feature-card', {
-      scrollTrigger: { trigger: '.features-grid', start: 'top 75%' },
-      opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out'
+      scrollTrigger: { trigger: '.features-grid', start: 'top 80%' },
+      opacity: 1, y: 0, duration: 0.6, stagger: 0.08, ease: 'power2.out'
     });
 
-    // ── Language demo ──
-    gsap.to('.lang-desc', {
-      scrollTrigger: { trigger: '.lang-desc', start: 'top 85%' },
-      opacity: 1, duration: 0.7, ease: 'power2.out'
-    });
-
-    gsap.to('.lang-flags', {
-      scrollTrigger: { trigger: '.lang-flags', start: 'top 85%' },
-      opacity: 1, duration: 0.7, delay: 0.2, ease: 'power2.out'
-    });
-
-    gsap.to('.lang-msg', {
-      scrollTrigger: { trigger: '.lang-messages', start: 'top 80%' },
-      opacity: 1, x: 0, duration: 0.6, stagger: 0.25, ease: 'power2.out'
-    });
-
-    // ── Steps ──
-    gsap.to('.step', {
-      scrollTrigger: { trigger: '.steps-grid', start: 'top 75%' },
-      opacity: 1, y: 0, duration: 0.7, stagger: 0.2, ease: 'power3.out'
-    });
-
-    // ── Counters ──
-    gsap.utils.toArray('.stat-number').forEach(stat => {
-      const target = parseInt(stat.getAttribute('data-target') || parseInt(stat.innerText.replace(/\D/g, '')) || 0);
-      const suffix = stat.getAttribute('data-suffix') || stat.innerText.replace(/[0-9]/g, '');
-      let opac = suffix.includes('/') ? 'opacity:.5' : '';
-      gsap.to({ val: 0 }, {
-        val: target,
-        duration: 2,
-        scrollTrigger: { trigger: ".stats-bar", start: "top 85%" },
-        onUpdate: function () {
-          stat.innerHTML = Math.floor(this.targets()[0].val) + `<span style="font-size:1.5rem;${opac}">${suffix}</span>`;
-        }
+    // Animate counters
+    gsap.utils.toArray('.counter').forEach(count => {
+      gsap.to(count, {
+        scrollTrigger: { trigger: count, start: 'top 85%' },
+        innerHTML: count.getAttribute('data-target'),
+        duration: 2.5,
+        ease: 'power3.out',
+        snap: { innerHTML: 1 },
+        onUpdate: function () { count.innerHTML = Math.round(count.innerHTML); }
       });
+    });
+
+    // ── DEMO ──
+    gsap.fromTo('.demo-tag', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, scrollTrigger: { trigger: '.demo-section', start: 'top 82%' } });
+    gsap.fromTo('.demo-title', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, scrollTrigger: { trigger: '.demo-section', start: 'top 80%' } });
+    gsap.fromTo('.demo-desc', { opacity: 0 }, { opacity: 1, duration: 0.6, delay: 0.2, scrollTrigger: { trigger: '.demo-section', start: 'top 78%' } });
+    gsap.fromTo('.demo-flags', { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, delay: 0.3, scrollTrigger: { trigger: '.demo-section', start: 'top 76%' } });
+
+    // ── DEMO CARDS ──
+    gsap.utils.toArray('.dlang-card').forEach((card) => {
+      gsap.fromTo(card,
+        { opacity: 0, y: 48, scale: 0.96 },
+        {
+          opacity: 1, y: 0, scale: 1,
+          duration: 0.75, ease: 'power3.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 88%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+
+    // ── ARQUITECTURA NODES ──
+    const archNodes = gsap.utils.toArray('.arch-node');
+    const archConns = gsap.utils.toArray('.arch-connector');
+
+    archNodes.forEach((node, i) => {
+      gsap.fromTo(node,
+        { opacity: 0, x: i % 2 === 0 ? -60 : 60 },
+        {
+          opacity: 1, x: 0, duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: node, start: 'top 82%' }
+        }
+      );
+    });
+
+    archConns.forEach((conn) => {
+      const line = conn.querySelector('.arch-conn-line');
+      gsap.fromTo(line,
+        { scaleY: 0, transformOrigin: 'top center' },
+        {
+          scaleY: 1, duration: 0.5, ease: 'power2.inOut',
+          scrollTrigger: { trigger: conn, start: 'top 85%' }
+        }
+      );
+      const dot = conn.querySelector('.arch-conn-dot');
+      gsap.fromTo(dot,
+        { opacity: 0, y: -10 },
+        {
+          opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', delay: 0.3,
+          scrollTrigger: { trigger: conn, start: 'top 85%' }
+        }
+      );
+    });
+
+    gsap.to('.arch-section .section-tag', {
+      scrollTrigger: { trigger: '.arch-section', start: 'top 85%' },
+      opacity: 1, y: 0, duration: 0.5
+    });
+    gsap.to('.arch-section .section-title', {
+      scrollTrigger: { trigger: '.arch-section', start: 'top 80%' },
+      opacity: 1, y: 0, duration: 0.7, stagger: 0.1
     });
 
     // ── CTA ──
-    const ctaTl = gsap.timeline({
-      scrollTrigger: { trigger: '.cta-section', start: 'top 70%' }
-    });
+    const ctaTl = gsap.timeline({ scrollTrigger: { trigger: '.cta-section', start: 'top 70%' } });
     ctaTl
       .to('.cta-badge', { opacity: 1, duration: 0.5 })
-      .to('.cta-title', { opacity: 1, duration: 0.7 }, '-=0.2')
+      .to('.cta-title', { opacity: 1, y: 0, duration: 0.7 }, '-=0.2')
       .to('.cta-sub', { opacity: 1, duration: 0.5 }, '-=0.3')
       .to('.cta-actions', { opacity: 1, duration: 0.5 }, '-=0.2');
 
-    // Chat window float loop
-    gsap.to('#chatMockup', {
-      y: -8, duration: 3, ease: 'sine.inOut',
-      yoyo: true, repeat: -1, delay: 2
-    });
+    gsap.from('#fabContainer', { scale: 0, opacity: 0, duration: 0.6, delay: 2.8, ease: 'back.out(1.5)' });
 
     // ── FLOATING CHAT BOT LOGIC ──
     let isChatInitialized = false;
 
     function openChatBot() {
-      if (!isChatInitialized) {
-        initWebChat();
-        isChatInitialized = true;
-      }
+      if (!isChatInitialized) { initWebChat(); isChatInitialized = true; }
       document.body.classList.add('chat-open');
-
       gsap.to('#fabBtn', { scale: 0, opacity: 0, duration: 0.3 });
-
       gsap.to('#chatOverlay', { opacity: 1, display: 'block', duration: 0.3 });
       gsap.to('#chatModal', { visibility: 'visible', scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.4)' });
     }
 
     function closeChatBot() {
       document.body.classList.remove('chat-open');
-
       gsap.to('#chatOverlay', { opacity: 0, display: 'none', duration: 0.3 });
       gsap.to('#chatModal', {
-        scale: 0.88, opacity: 0, duration: 0.3, ease: 'power2.in', onComplete: () => {
+        scale: 0.88, opacity: 0, duration: 0.3, ease: 'power2.in',
+        onComplete: () => {
           document.getElementById('chatModal').style.visibility = 'hidden';
           gsap.to('#fabBtn', { scale: 1, opacity: 1, duration: 0.4, ease: 'back.out' });
         }
@@ -446,65 +586,46 @@
 
     function toggleChatBot() {
       const modal = document.getElementById('chatModal');
-      if (modal.style.visibility === 'visible') {
-        closeChatBot();
-      } else {
-        openChatBot();
-      }
+      if (modal.style.visibility === 'visible') closeChatBot();
+      else openChatBot();
     }
 
     function initWebChat() {
       const token = "{{WEB_CHAT_TOKEN}}";
       if (!token || token.includes("ERROR") || token.startsWith("{{")) {
-        document.getElementById('webchat-container').innerHTML = "<div style='padding:2rem;text-align:center;'>El bot se encuentra configurando sus permisos en Azure. Si usted es el administrador, revise la consola o el Secret Key.</div>";
-        // Si no tenemos token permitimos fallar silenciosamente en la UI y mostrar mensaje.
+        document.getElementById('webchat-container').innerHTML = "<div style='padding:2rem;text-align:center;color:#666;'>El bot se encuentra configurando sus permisos en Azure. Si usted es el administrador, revise la consola o el Secret Key.</div>";
       } else {
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         const styleOptions = {
-          hideUserAvatar: true,
-          hideBotAvatar: true,
-          bubbleBorderWidth: 0,
-          bubbleFromUserBorderWidth: 0,
+          hideUserAvatar: true, hideBotAvatar: true,
+          bubbleBorderWidth: 0, bubbleFromUserBorderWidth: 0,
           bubbleBackground: isDark ? 'rgba(59,143,232,0.15)' : '#B9D5F0',
           bubbleTextColor: isDark ? '#90BFF0' : '#05192d',
           bubbleBorderRadius: 18,
-          bubbleFromUserBackground: '#3B8FE8',
-          bubbleFromUserTextColor: 'White',
-          bubbleFromUserBorderRadius: 18,
-          backgroundColor: 'transparent',
+          bubbleFromUserBackground: '#3B8FE8', bubbleFromUserTextColor: 'White',
+          bubbleFromUserBorderRadius: 18, backgroundColor: 'transparent',
           hideUploadButton: true,
           sendBoxBackground: isDark ? '#161B22' : '#FFFFFF',
           sendBoxTextColor: isDark ? '#F0F4F8' : '#1A1A1A',
           primaryFont: "'DM Sans', sans-serif"
         };
 
-        // Middleware para interceptar y formatear mensajes en el frontend
         const store = window.WebChat.createStore({}, ({ dispatch }) => next => action => {
           if (action.type === 'DIRECT_LINE/INCOMING_ACTIVITY') {
             const activity = action.payload.activity;
-            if (activity && activity.type === 'message' && activity.text) {
-              if (activity.text.includes('•')) {
-                activity.text = activity.text.replace(/\s?•\s?/g, '\n\n• ');
-              }
+            if (activity && activity.type === 'message' && activity.text && activity.text.includes('•')) {
+              activity.text = activity.text.replace(/\s?•\s?/g, '\n\n• ');
             }
           }
           return next(action);
         });
 
         window.WebChat.renderWebChat(
-          {
-            directLine: window.WebChat.createDirectLine({ token: token }),
-            styleOptions: styleOptions,
-            store: store
-          },
+          { directLine: window.WebChat.createDirectLine({ token }), styleOptions, store },
           document.getElementById('webchat-container')
         );
       }
     }
-
-    // Modal Entrance animation
-    gsap.from('#fabContainer', { scale: 0, opacity: 0, duration: 0.6, delay: 2.5, ease: 'back.out(1.5)' });
-
   </script>
 </body>
 
