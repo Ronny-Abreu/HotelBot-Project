@@ -67,6 +67,7 @@ async def messages(req: Request) -> Response:
 
 import aiohttp
 
+
 # ── Landing Page ──
 async def index(req: Request) -> Response:
     try:
@@ -76,15 +77,17 @@ async def index(req: Request) -> Response:
         token = "ERROR_GENERANDO_TOKEN"
         if CONFIG.WEB_CHAT_SECRET:
             try:
-                # Generamos un token temporal para no exponer el Secret Key en la web (Mejor Práctica)
+                # Generamos un token temporal para no exponer el Secret Key en la web
                 async with aiohttp.ClientSession() as session:
                     headers = {"Authorization": f"Bearer {CONFIG.WEB_CHAT_SECRET}"}
-                    async with session.get("https://webchat.botframework.com/api/tokens", headers=headers) as resp:
+                    async with session.get(
+                        "https://webchat.botframework.com/api/tokens", headers=headers
+                    ) as resp:
                         if resp.status == 200:
                             token = (await resp.text()).strip('"')
             except Exception as e:
                 print(f"Error fetcheando token web chat: {e}")
-                
+
         # Inyectamos el token en lugar de la Secret Key
         content = content.replace("{{WEB_CHAT_TOKEN}}", token)
         return Response(text=content, content_type="text/html")
@@ -96,6 +99,7 @@ APP = web.Application()
 APP.router.add_post("/api/messages", messages)
 
 import os as _os
+
 if _os.path.isdir("web"):
     APP.router.add_get("/", index)
     APP.router.add_get("/index.html", index)
